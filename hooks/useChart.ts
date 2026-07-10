@@ -20,6 +20,7 @@ const defaultGameInfo: GameInfo = {
   inning: "Top 1",
   score: "0-0",
   date: new Date().toISOString().slice(0, 10),
+  chartMode: "offense",
 };
 
 type Half = "Top" | "Bottom";

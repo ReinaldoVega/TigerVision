@@ -15,6 +15,7 @@ export default function GameSetup() {
     inning: "Top 1",
     score: "0-0",
     date: new Date().toISOString().slice(0, 10),
+    chartMode: "offense",
   });
 
   const [lineup, setLineup] = useState<Player[]>(
@@ -81,7 +82,47 @@ export default function GameSetup() {
               value={gameInfo.inning}
               onChange={(value) => setGameInfo({ ...gameInfo, inning: value })}
             />
+<div className="mt-5">
+  <p className="mb-3 text-xs font-black uppercase tracking-[2px] text-slate-400">
+    Chart Mode
+  </p>
 
+  <div className="grid grid-cols-2 gap-3">
+    <button
+      type="button"
+      onClick={() =>
+        setGameInfo({
+          ...gameInfo,
+          chartMode: "offense",
+        })
+      }
+      className={`h-12 rounded-xl border text-sm font-black uppercase ${
+        gameInfo.chartMode === "offense"
+          ? "border-[#FA4616] bg-[#FA4616] text-white"
+          : "border-[#25476D] bg-[#07111F] text-white"
+      }`}
+    >
+      Offense
+    </button>
+
+    <button
+      type="button"
+      onClick={() =>
+        setGameInfo({
+          ...gameInfo,
+          chartMode: "pitching",
+        })
+      }
+      className={`h-12 rounded-xl border text-sm font-black uppercase ${
+        gameInfo.chartMode === "pitching"
+          ? "border-[#FA4616] bg-[#FA4616] text-white"
+          : "border-[#25476D] bg-[#07111F] text-white"
+      }`}
+    >
+      Pitching
+    </button>
+  </div>
+</div>
             <button
               onClick={() => startGame(gameInfo, lineup)}
               className="mt-6 h-14 w-full rounded-2xl bg-[#FA4616] text-base font-black uppercase text-white"

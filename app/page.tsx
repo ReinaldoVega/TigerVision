@@ -11,15 +11,19 @@ import QuickChart from "@/components/quickchart/QuickChart";
 import RightPanel from "@/components/right/RightPanel";
 import GameSetup from "@/components/game/GameSetup";
 
-import { ChartProvider, useChartContext } from "@/context/ChartContext";
+import PitchingChart from "@/components/pitching/PitchingChart";
+import PitchSequence from "@/components/pitching/PitchSequence";
 
-function AppContent() {
-  const { hasGame } = useChartContext();
+import {
+  ChartProvider,
+  useChartContext,
+} from "@/context/ChartContext";
 
-  if (!hasGame) {
-    return <GameSetup />;
-  }
+import {
+  PitchingChartProvider,
+} from "@/context/PitchingChartContext";
 
+function OffenseMode() {
   return (
     <Dashboard
       header={<Header />}
@@ -35,6 +39,38 @@ function AppContent() {
       footer={<Footer />}
     />
   );
+}
+
+function PitchingMode() {
+  return (
+    <PitchingChartProvider>
+      <Dashboard
+        header={<Header />}
+        context={<ContextBar />}
+        left={
+          <div className="grid h-full grid-rows-[1fr_220px] gap-4">
+            <Lineup />
+            <Timeline />
+          </div>
+        }
+        center={<PitchingChart />}
+        right={<PitchSequence />}
+        footer={<Footer />}
+      />
+    </PitchingChartProvider>
+  );
+}
+
+function AppContent() {
+  const { hasGame, gameInfo } = useChartContext();
+
+  if (!hasGame) {
+    return <GameSetup />;
+  }
+
+  return gameInfo.chartMode === "pitching"
+    ? <PitchingMode />
+    : <OffenseMode />;
 }
 
 export default function Home() {
