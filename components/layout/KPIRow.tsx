@@ -13,7 +13,6 @@ export default function KPIRow() {
   return (
     <section
       className="grid grid-cols-5 gap-4"
-      style={{ height: DESIGN.kpiHeight }}
     >
       {kpis.map(({ icon: Icon, title, value, sub }) => (
         <div

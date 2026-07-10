@@ -184,6 +184,7 @@ export function exportGameChartPdf({
       safeText(ab.outs),
       safeText(ab.runners),
       safeText(ab.comment),
+      safeText(ab.comment || ab.inkText),
     ]),
     theme: "grid",
     margin: { left: 305, right: 36 },
@@ -220,6 +221,45 @@ export function exportGameChartPdf({
       13: { cellWidth: 110 },
     },
   });
+
+  const notesWithInk = atBats.filter((ab) => ab.inkNote);
+
+if (notesWithInk.length) {
+  doc.addPage();
+
+  doc.setFillColor(navy);
+  doc.rect(0, 0, pageWidth, 60, "F");
+
+  doc.setTextColor("#FFFFFF");
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(20);
+  doc.text("Handwritten Notes", 36, 36);
+
+  let noteY = 85;
+
+  notesWithInk.forEach((ab, index) => {
+    if (noteY > 420) {
+      doc.addPage();
+      noteY = 60;
+    }
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(navy2);
+    doc.text(`AB ${ab.abNumber} — ${ab.batter}`, 36, noteY);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(gray);
+    doc.text(`Converted: ${safeText(ab.inkText || ab.comment || "-")}`, 36, noteY + 16);
+
+    try {
+      doc.addImage(ab.inkNote, "PNG", 36, noteY + 28, 340, 120);
+    } catch {}
+
+    noteY += 175;
+  });
+}
 
   // FOOTER / PAGE NUMBERS
   const pageCount = doc.getNumberOfPages();

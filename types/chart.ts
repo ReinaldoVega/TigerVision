@@ -44,6 +44,8 @@ export type AtBat = {
   quality: ContactQuality;
   direction: FieldDirection;
   comment: string;
+  inkNote: string;
+  inkText: string;
 };
 
 export type ChartStep =

@@ -8,18 +8,26 @@ export function createEmptyAtBat(
   return {
     batter: player?.name || "Player",
     batterHand: player?.bats || "R",
+
     abNumber,
     pitchNumber: 1,
+
     result: "",
     pitch: "",
     velo: "",
+
     zone: null,
     count: "",
+
     outs,
     runners: "Empty",
+
     contact: "",
     quality: "",
     direction: "",
+
     comment: "",
+    inkNote: "",
+    inkText: "",
   };
 }

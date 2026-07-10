@@ -1,14 +1,10 @@
 import Card from "@/components/layout/Card";
-import { DESIGN } from "@/lib/design";
 
 export default function CoachAssistant() {
   return (
     <Card
       title="Coach Assistant"
       dark
-      style={{
-        height: DESIGN.coachHeight,
-      }}
       action={
         <button className="text-xs text-slate-300">
           Hide ^

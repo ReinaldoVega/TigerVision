@@ -4,6 +4,7 @@ import Card from "@/components/layout/Card";
 import TVButton from "@/components/tv/TVButton";
 import TVSection from "@/components/tv/TVSection";
 import ProgressTracker from "@/components/quickchart/ProgressTracker";
+import HandwriteNote from "@/components/quickchart/HandwriteNote";
 import { useRef } from "react";
 import { useChartContext } from "@/context/ChartContext";
 import { getActiveStep, getStepStatus } from "@/core/chart/engine";
@@ -416,6 +417,24 @@ function scrollTo(ref: React.RefObject<HTMLDivElement | null>) {
             placeholder="Comment"
           />
         </div>
+<div className="mt-4 grid grid-cols-[1fr_180px] gap-3">
+  <input
+    value={currentAtBat.comment}
+    onChange={(e) => updateAtBat("comment", e.target.value)}
+    className="h-11 rounded-xl border border-slate-200 bg-white px-3 text-sm font-black"
+    placeholder="Comment"
+  />
+
+  <HandwriteNote
+    inkNote={currentAtBat.inkNote}
+    inkText={currentAtBat.inkText}
+    onSaveInk={(value) => updateAtBat("inkNote", value)}
+    onSaveText={(value) => {
+      updateAtBat("inkText", value);
+      updateAtBat("comment", value);
+    }}
+  />
+</div>
 
         <div className="mt-5 grid grid-cols-[1fr_180px] items-center gap-4">
           <button
