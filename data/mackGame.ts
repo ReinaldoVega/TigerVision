@@ -24,6 +24,8 @@ export const currentAtBat: AtBat = {
   direction: "",
   quality: "",
   comment: "",
+  inkNote: "",
+  inkText: "",
 };
 
 export const gameInfo = {
